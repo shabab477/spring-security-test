@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -12,40 +13,39 @@
 
 <div class="container">
 
-    <h3>Welcome Customer</h3>
-
-
-    <div th:if="${isLoggedIn}">
-        <h5>You are logged in</h5>
-    </div>
-
+    <h3>Login As Customer</h3>
 
     <div class="container">
 
-        <!--Add list item diff here-->
+       <!--Add list item diff here-->
         <th:block th:each="food : ${foods}">
             <div class="row">
                 <div class="col-sm-6">
-                    Name: <span th:text="${food.name}"></span>
+                    Name: Test
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-6">
-                    Price: <span th:text="${food.price}"></span>
+                    Price: 12.0
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-2">
-                    <form action="#" th:method="@{POST}" th:action="@{/food/cart}" th:object="${food}">
-                        <input type="hidden" name="id" th:value="${food.id}">
-                        <button type="submit" class="btn btn-info">Add to Cart</button>
+                    <form action="#">
+                        <button class="btn btn-info">Add to Cart</button>
+                    </form>
+                </div>
+                <div class="col-sm-2">
+                    <form action="#">
+                        <button class="btn btn-danger">Remove</button>
+                    </form>
+                </div>
+                <div class="col-sm-2">
+                    <form action="#">
+                        <button class="btn btn-default">Update</button>
                     </form>
                 </div>
             </div>
-
-            <br />
-            <br />
-
         </th:block>
 
 
@@ -56,4 +56,3 @@
 <script th:src="@{/js/bootstrap.min.js}"></script>
 </body>
 </html>
-

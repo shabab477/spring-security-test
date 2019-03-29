@@ -1,10 +1,76 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Admin</title>
+    <meta charset="utf-8">
+    <title>Log in with your account</title>
+
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{css/common.css}" rel="stylesheet">
 </head>
+
 <body>
-    <h1>This is admin page</h1>
+
+<div class="container">
+
+    <h3>Welcome Admin &nbsp;&nbsp;<a th:href="@{/logout}">Logout Here</a></h3>
+
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-sm-6">
+                <form action="#">
+                    <button class="btn btn-success">Add new food</button>
+                </form>
+            </div>
+        </div>
+
+        <br />
+
+        <div class="row">
+            <div class="col-sm-6">
+                <form action="#">
+                    <button class="btn btn-success">Add new restaurant</button>
+                </form>
+            </div>
+        </div>
+
+        <br />
+        <br />
+        <!--Add list item diff here-->
+        <th:block th:each="food : ${foods}">
+            <div class="row">
+                <div class="col-sm-6">
+                    Name: <span th:text="${food.name}"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    Price: <span th:text="${food.price}"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <form action="#">
+                        <button class="btn btn-danger">Remove</button>
+                    </form>
+                </div>
+                <div class="col-sm-2">
+                    <form action="#">
+                        <button class="btn btn-default">Update</button>
+                    </form>
+                </div>
+            </div>
+            <br />
+            <br />
+        </th:block>
+
+
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
 </body>
 </html>

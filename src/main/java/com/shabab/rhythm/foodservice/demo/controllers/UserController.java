@@ -2,6 +2,8 @@ package com.shabab.rhythm.foodservice.demo.controllers;
 
 import com.shabab.rhythm.foodservice.demo.models.Role;
 import com.shabab.rhythm.foodservice.demo.models.User;
+import com.shabab.rhythm.foodservice.demo.repositories.CartRepository;
+import com.shabab.rhythm.foodservice.demo.repositories.FoodRepository;
 import com.shabab.rhythm.foodservice.demo.services.SecurityService;
 import com.shabab.rhythm.foodservice.demo.services.UserService;
 import com.shabab.rhythm.foodservice.demo.utils.AuthUtils;
@@ -28,6 +30,12 @@ public class UserController {
     private UserService userService;
 
     @Autowired
+    private CartRepository cartRepository;
+
+    @Autowired
+    private FoodRepository foodRepository;
+
+    @Autowired
     private SecurityService securityService;
 
     @GetMapping("/registration")
@@ -38,7 +46,9 @@ public class UserController {
     }
 
     @GetMapping("/admin")
-    public String showAdminPage() {
+    public String showAdminPage(Model model) {
+        model.addAttribute("foods", foodRepository.findAll());
+
         return "admin";
     }
 
@@ -94,6 +104,18 @@ public class UserController {
     @GetMapping({"/", "/welcome"})
     public String welcome(Model model) {
         model.addAttribute("isLoggedIn", AuthUtils.isLoggedIn());
+        model.addAttribute("foods", foodRepository.findAll());
+        model.addAttribute(
+                "cart",
+                AuthUtils.isLoggedIn()?
+                        cartRepository
+                                .findByUserId(
+                                        userService
+                                                .findByUserName(AuthUtils
+                                                        .getLoggedInUser().getUsername())
+                                                .getId()
+                                ) : null
+        );
 
         return "welcome";
     }
