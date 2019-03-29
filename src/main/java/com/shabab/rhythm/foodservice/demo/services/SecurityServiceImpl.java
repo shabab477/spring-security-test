@@ -13,8 +13,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class SecurityServiceImpl implements SecurityService{
 
-//    @Autowired
-//    private AuthenticationManager authenticationManager;
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
     @Autowired
     @Qualifier("myUserDetailService")
@@ -35,10 +35,10 @@ public class SecurityServiceImpl implements SecurityService{
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
 
-//        authenticationManager.authenticate(usernamePasswordAuthenticationToken);
-//
-//        if (usernamePasswordAuthenticationToken.isAuthenticated()) {
-//            SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-//        }
+        authenticationManager.authenticate(usernamePasswordAuthenticationToken);
+
+        if (usernamePasswordAuthenticationToken.isAuthenticated()) {
+            SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+        }
     }
 }

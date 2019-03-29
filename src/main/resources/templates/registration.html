@@ -1,22 +1,35 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <title>Create an account</title>
 
-    <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
-    <link href="${contextPath}/resources/css/common.css" rel="stylesheet">
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{css/common.css}" rel="stylesheet">
 </head>
 
 <body>
 
-<div class="container">
+    <div class="container">
 
-    <h1>This is registration page</h1>
-</div>
+        <h3>Create Account</h3>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
+        <div class="container">
+            <form action="#" th:action="@{/registration}" th:object="${userForm}" method="post">
+                <div class="form-group">
+                    <label th:for="userName" >User Name:</label>
+                    <input type="text" th:field="*{userName}">
+                </div>
+                <div class="form-group">
+                    <label th:for="password" >Password:</label>
+                    <input type="text" th:field="*{password}">
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
 </body>
 </html>

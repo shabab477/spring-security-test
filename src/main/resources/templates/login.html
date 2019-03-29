@@ -1,17 +1,36 @@
 
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>Log in with your account</title>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <title>Log in with your account</title>
 
-    <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
-    <link href="${contextPath}/resources/css/common.css" rel="stylesheet">
-</head>
+        <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+        <link th:href="@{css/common.css}" rel="stylesheet">
+    </head>
 
-<body>
+    <body>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
-</body>
+        <div class="container">
+
+            <h3>Login As Customer</h3>
+
+            <div class="container">
+                <form action="#" th:action="@{/doLogin}" th:object="${userForm}" method="post">
+                    <div class="form-group">
+                        <label th:for="userName" >User Name:</label>
+                        <input type="text" name="username" th:value="*{userName}">
+                    </div>
+                    <div class="form-group">
+                        <label th:for="password" >Password:</label>
+                        <input type="text" th:field="*{password}">
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+            </div>
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script th:src="@{/js/bootstrap.min.js}"></script>
+    </body>
 </html>
