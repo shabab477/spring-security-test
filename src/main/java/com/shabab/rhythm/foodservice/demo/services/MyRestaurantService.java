@@ -22,7 +22,7 @@ public class MyRestaurantService {
 		return res;
 	}
 
-	public Restaurant getRes(String id) {
+	public Restaurant getRes(Long id) {
 
 		return rest.findById(id).orElse(null);
 	}
@@ -38,7 +38,7 @@ public class MyRestaurantService {
 
 	}
 
-	public void delres(String id) {
+	public void delres(Long id) {
 		rest.deleteById(id);
 
 	}

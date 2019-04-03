@@ -1,5 +1,6 @@
 package com.shabab.rhythm.foodservice.demo.controllers;
 
+import com.shabab.rhythm.foodservice.demo.models.Food;
 import com.shabab.rhythm.foodservice.demo.models.Role;
 import com.shabab.rhythm.foodservice.demo.models.User;
 import com.shabab.rhythm.foodservice.demo.repositories.CartRepository;
@@ -48,6 +49,7 @@ public class UserController {
     @GetMapping("/admin")
     public String showAdminPage(Model model) {
         model.addAttribute("foods", foodRepository.findAll());
+        model.addAttribute("food", new Food());
 
         return "admin";
     }
@@ -81,13 +83,6 @@ public class UserController {
         return "login";
     }
 
-    @GetMapping("/login-admin")
-    public String showAdminLogin(Model model, String error, String logout) {
-        model.addAttribute("userForm", new User());
-
-        return "login-admin";
-    }
-
     @PostMapping("/postLogin")
     public String postLogin(Model model, HttpSession session) {
         org.springframework.security.core.userdetails.User loggedInUser = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -106,7 +101,7 @@ public class UserController {
         model.addAttribute("isLoggedIn", AuthUtils.isLoggedIn());
         model.addAttribute("foods", foodRepository.findAll());
         model.addAttribute(
-                "cart",
+                "carts",
                 AuthUtils.isLoggedIn()?
                         cartRepository
                                 .findByUserId(

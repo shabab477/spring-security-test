@@ -5,6 +5,6 @@ import com.shabab.rhythm.foodservice.demo.models.Restaurant;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-public interface RestRepository extends CrudRepository <Restaurant, String> {
+public interface RestRepository extends CrudRepository <Restaurant, Long> {
 	
 }

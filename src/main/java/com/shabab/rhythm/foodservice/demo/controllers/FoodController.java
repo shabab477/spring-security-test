@@ -6,16 +6,14 @@ import com.shabab.rhythm.foodservice.demo.models.Cart;
 import com.shabab.rhythm.foodservice.demo.models.Food;
 import com.shabab.rhythm.foodservice.demo.models.Restaurant;
 import com.shabab.rhythm.foodservice.demo.repositories.CartRepository;
+import com.shabab.rhythm.foodservice.demo.repositories.FoodRepository;
 import com.shabab.rhythm.foodservice.demo.repositories.UserRepository;
 import com.shabab.rhythm.foodservice.demo.services.FoodService;
 import com.shabab.rhythm.foodservice.demo.utils.AuthUtils;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class FoodController {
@@ -27,22 +25,23 @@ public class FoodController {
     private UserRepository userRepository;
 
     @Autowired
+    private FoodRepository foodRepository;
+
+    @Autowired
     private CartRepository cartRepository;
 
-    @RequestMapping("/restaurant/{id}/food")
-    public List<Food> getallFood(@PathVariable String id) {
-        return rs.getAllFood(id);
+    @RequestMapping(method = RequestMethod.POST, value = "/admin/food")
+    public String saveFood(Food food) {
+        foodRepository.save(food);
+
+        return "redirect:/admin";
     }
 
-    @RequestMapping("/restaurant/{resid}/food/{id}")
-    public Food getFood(@PathVariable String id) {
+    @PostMapping(value = "admin/food/delete")
+    public String deleteFoodItem(Food food) {
+        foodRepository.delete(foodRepository.findById(food.getId()).get());
 
-        return rs.getFood(id);
-    }
-
-    @RequestMapping(method = RequestMethod.DELETE, value = "/admin/restaurant/{resid}/food/{id}")
-    public void delFood(@PathVariable String id) {
-        rs.delFood(id);
+        return "redirect:/admin";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/food/cart")

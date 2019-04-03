@@ -12,26 +12,32 @@
 
 <div class="container">
 
-    <h3>Welcome Customer</h3>
+    <h3>Welcome Customer <span th:if="${!isLoggedIn}"><a href="/login">Login</a> or <a href="/registration">Register</a></span></h3>
 
 
     <div th:if="${isLoggedIn}">
-        <h5>You are logged in</h5>
+        <h5>You are logged in <a href="/logout">Logout</a></h5>
     </div>
 
 
     <div class="container">
 
         <!--Add list item diff here-->
+        <h2>Food Items</h2>
         <th:block th:each="food : ${foods}">
             <div class="row">
                 <div class="col-sm-6">
-                    Name: <span th:text="${food.name}"></span>
+                    <b>Name:</b> <span th:text="${food.name}"></span>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-6">
-                    Price: <span th:text="${food.price}"></span>
+                    <b>Restaurant Name:</b> <span th:text="${food.res.name}"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <b>Price:</b> <span th:text="${food.price}"></span>
                 </div>
             </div>
             <div class="row">
@@ -39,6 +45,38 @@
                     <form action="#" th:method="@{POST}" th:action="@{/food/cart}" th:object="${food}">
                         <input type="hidden" name="id" th:value="${food.id}">
                         <button type="submit" class="btn btn-info">Add to Cart</button>
+                    </form>
+                </div>
+            </div>
+
+            <br />
+            <br />
+
+        </th:block>
+
+        <!--Add list item diff here-->
+        <h2 th:if="${carts}">Cart</h2>
+        <th:block th:each="cart : ${carts}">
+            <div class="row">
+                <div class="col-sm-6">
+                    Name: <span th:text="${cart.food.name}"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <b>Restaurant Name:</b> <span th:text="${cart.food.res.name}"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    Price: <span th:text="${cart.food.price}"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <form action="#" th:method="@{POST}" th:action="@{/cart/remove}" th:object="${cart}">
+                        <input type="hidden" name="id" th:value="${cart.id}">
+                        <button type="submit" class="btn btn-info">Remove From Cart</button>
                     </form>
                 </div>
             </div>

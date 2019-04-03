@@ -1,24 +1,23 @@
 package com.shabab.rhythm.foodservice.demo.models;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class Food {
 
     @Id
-	private String id;
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	private Long id;
     private String name;
 	private double price;
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Restaurant res;
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

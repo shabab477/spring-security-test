@@ -20,22 +20,25 @@
 
         <div class="row">
             <div class="col-sm-6">
-                <form action="#">
-                    <button class="btn btn-success">Add new food</button>
+                <form action="#" th:action="@{/admin/food}" th:object="${food}" method="post">
+                    <div class="form-group">
+                        <label>Food Name:</label>
+                        <input type="text" required="true" th:field="*{name}">
+                    </div>
+                    <div class="form-group">
+                        <label >Restaurant Name:</label>
+                        <input required="true" type="text" th:field="*{res.name}">
+                    </div>
+                    <div class="form-group">
+                        <label th:for="password" >Price:</label>
+                        <input required="true" type="text" th:field="*{price}">
+                    </div>
+                    <button th:type="submit" class="btn btn-success">Add new food</button>
                 </form>
             </div>
         </div>
 
         <br />
-
-        <div class="row">
-            <div class="col-sm-6">
-                <form action="#">
-                    <button class="btn btn-success">Add new restaurant</button>
-                </form>
-            </div>
-        </div>
-
         <br />
         <br />
         <!--Add list item diff here-->
@@ -47,25 +50,25 @@
             </div>
             <div class="row">
                 <div class="col-sm-6">
+                    Restaurant Name: <span th:text="${food.res.name}"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
                     Price: <span th:text="${food.price}"></span>
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-2">
-                    <form action="#">
-                        <button class="btn btn-danger">Remove</button>
-                    </form>
-                </div>
-                <div class="col-sm-2">
-                    <form action="#">
-                        <button class="btn btn-default">Update</button>
+                <div class="col-sm-6">
+                    <form action="#" th:action="@{admin/food/delete}" th:object="${food}" method="POST">
+                        <input type="hidden" name="id" th:value="${food.id}">
+                        <button class="btn btn-danger">Delete Food Item</button>
                     </form>
                 </div>
             </div>
             <br />
             <br />
         </th:block>
-
 
     </div>
 </div>
