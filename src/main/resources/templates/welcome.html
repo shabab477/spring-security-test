@@ -57,6 +57,7 @@
         <!--Add list item diff here-->
         <h2 th:if="${carts}">Cart</h2>
         <th:block th:each="cart : ${carts}">
+            <th:block th:if="${cart.food != null}">
             <div class="row">
                 <div class="col-sm-6">
                     Name: <span th:text="${cart.food.name}"></span>
@@ -80,9 +81,10 @@
                     </form>
                 </div>
             </div>
+            <br />
+            <br />
+            </th:block>
 
-            <br />
-            <br />
 
         </th:block>
 

@@ -1,5 +1,8 @@
 package com.shabab.rhythm.foodservice.demo.models;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 import javax.persistence.*;
 
 @Entity
@@ -9,6 +12,7 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
+    @NotFound(action = NotFoundAction.IGNORE)
     private Food food;
     @ManyToOne
     private User user;

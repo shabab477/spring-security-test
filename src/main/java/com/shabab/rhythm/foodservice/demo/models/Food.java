@@ -1,6 +1,7 @@
 package com.shabab.rhythm.foodservice.demo.models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Food {
@@ -12,6 +13,8 @@ public class Food {
 	private double price;
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Restaurant res;
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Cart> carts;
 
 	public Long getId() {
 		return id;
@@ -43,5 +46,13 @@ public class Food {
 
 	public void setRes(Restaurant res) {
 		this.res = res;
+	}
+
+	public List<Cart> getCarts() {
+		return carts;
+	}
+
+	public void setCarts(List<Cart> carts) {
+		this.carts = carts;
 	}
 }
